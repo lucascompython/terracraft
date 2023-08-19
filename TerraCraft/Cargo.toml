@@ -2,7 +2,22 @@
 name = "terracraft"
 version = "0.1.0"
 edition = "2021"
-
+repository = "https://github.com/lucascompython/terracraft"
+authors = ["Lucas de Linhares <lucasdelinhares@gmail.com>"]
+description = "A Rust library for interoping with Minecraft (JVM) and Terraria (NET)"
+keyword = [
+    "minecraft",
+    "terraria",
+    "interop",
+    "jvm",
+    "net",
+    "java",
+    "c#",
+    "dotnet",
+]
+license = "GPL-3.0"
+readme = "README.md"
+license-file = "LICENSE"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
@@ -10,3 +25,8 @@ jni = "0.21.1"
 
 [lib]
 crate-type = ["cdylib"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
