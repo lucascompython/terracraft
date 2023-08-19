@@ -22,7 +22,7 @@ impl JavaStringExt for &str {
 }
 
 #[no_mangle]
-pub extern "system" fn Java_TerraCraft_setup<'local>(
+pub extern "system" fn Java_terracraft_TerraCraft_setup<'local>(
     mut env: JNIEnv<'local>,
 
     class: JClass<'local>,
@@ -36,7 +36,7 @@ pub extern "system" fn Java_TerraCraft_setup<'local>(
     //.new_string(format!("Hello, {}!", input))
     //.expect("Couldn't create java string!");
 
-    let result =
+    let result: Result<JValueGen<jni::objects::JObject<'_>>, jni::errors::Error> =
         env.call_static_method(class, "add", "(II)I", &[JValue::Int(69), JValue::Int(420)]);
 
     match result {
@@ -54,5 +54,5 @@ pub extern "system" fn Java_TerraCraft_setup<'local>(
         Err(e) => println!("Call static method error: {:?}", e),
     }
 
-    "".to_java_string(&env)
+    "Esta merda fodeu".to_java_string(&env)
 }
