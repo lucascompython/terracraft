@@ -1,0 +1,9 @@
+{
+  "dotnet.defaultSolution": "TerraCraft/TerraCraft.sln",
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "disabled",
+  "java.project.sourcePaths": [
+    "src\\main\\java"
+  ],
+  "java.project.outputPath": "build\\libs"
+}
