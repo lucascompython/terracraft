@@ -25,7 +25,7 @@ partial class Program
             if (piece.StartsWith("[") && piece.EndsWith("]"))
             {
                 Console.ForegroundColor = color;
-                piece = piece.Substring(1, piece.Length - 2);
+                piece = piece[1..^1];
             }
 
             Console.Write(piece);
