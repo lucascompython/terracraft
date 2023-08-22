@@ -1,7 +1,8 @@
+# For the gradle wrapper
 ifeq ($(OS),Windows_NT)
-	shell := cmd /c
+	shell := cmd /c 
 else
-	shell := sh
+	shell := sh 
 endif
 
 all : @run
@@ -39,7 +40,7 @@ jvm_clean:
 	@cd TerraCraftJVM && $(shell) gradlew clean && cd ..
 net_clean:
 	@echo ".NET clean"
-	@cd TerraCraftNET && dotnet clean && cd ..
+	@cd TerraCraftNET && dotnet clean && dotnet clean -c Release && cd ..
 
 
 @run : rust_run jvm_run net_run
