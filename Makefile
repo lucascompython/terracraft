@@ -18,7 +18,7 @@ jvm_run:
 	@cd TerraCraftJVM && $(shell) gradlew run && cd ..
 net_run:
 	@echo ".NET run"
-	@cd TerraCraftNET && dotnet run && cd ..	
+	@cd TerraCraftNET && dotnet publish -p:NativeLib=Shared --runtime linux-x64 && cd ..	
 
 
 rust_build:
@@ -29,7 +29,7 @@ jvm_build:
 	@cd TerraCraftJVM && $(shell) gradlew build && cd ..
 net_build:
 	@echo ".NET build"
-	@cd TerraCraftNET && dotnet build -c Release && cd ..
+	@cd TerraCraftNET && dotnet publish -p:NativeLib=Shared --runtime linux-x64 -c Release && cd ..
 
 
 rust_clean:
