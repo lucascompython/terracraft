@@ -21,12 +21,22 @@ impl JavaStringExt for &str {
     }
 }
 
-extern "C" {
-    fn MultiplyNumbers(a: jint, b: jint) -> jint;
+//extern "C" {
+//fn MultiplyNumbers(a: jint, b: jint) -> jint;
+//}
+
+#[no_mangle]
+pub extern "system" fn Java_terracraft_App_mult<'local>(
+    mut env: JNIEnv<'local>,
+    _class: JClass<'local>,
+    a: jint,
+    b: jint,
+) -> jint {
+    a * b
 }
 
 #[no_mangle]
-pub extern "system" fn Java_terracraft_TerraCraft_setup<'local>(
+pub extern "system" fn Java_terracraft_App_setup<'local>(
     mut env: JNIEnv<'local>,
 
     class: JClass<'local>,
@@ -58,8 +68,8 @@ pub extern "system" fn Java_terracraft_TerraCraft_setup<'local>(
         Err(e) => println!("Call static method error: {:?}", e),
     }
 
-    let net_result = unsafe { MultiplyNumbers(69, 420) };
-    println!("NET returned: {}!", net_result);
+    //let net_result = unsafe { MultiplyNumbers(69, 420) };
+    //println!("NET returned: {}!", net_result);
 
     "Esta merda fodeu".to_java_string(&env)
 }
