@@ -1,8 +1,8 @@
 # Terracraft
 
-## Minecraft <-> Terraria bridge
+## Minecraft <-> Terraria chat bridge
 
-The "brain" of the project is the Rust shared library. It is loaded by the JVM and .NET.
+The "brain" of the project is a Rust shared library. It is loaded by the JVM and Dotnet.
 
 ## JVM Interop
 
