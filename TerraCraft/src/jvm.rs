@@ -1,7 +1,7 @@
 use jni::JNIEnv;
 
 use jni::objects::{JClass, JValue, JValueGen};
-use jni::sys::{jint, jstring};
+use jni::sys::jstring;
 
 fn java_string(env: &JNIEnv, string: &str) -> jstring {
     **env

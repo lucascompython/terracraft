@@ -5,8 +5,8 @@ mod net;
 
 #[no_mangle]
 pub extern "system" fn Java_terracraft_TerraCraft_addRust<'local>(
-    mut env: JNIEnv<'local>,
-    class: JClass<'local>,
+    mut _env: JNIEnv<'local>,
+    _class: JClass<'local>,
     a: jint,
     b: jint,
 ) -> jint {

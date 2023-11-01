@@ -1,7 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace TerraCraftNET;
-// hexadecimal color codes
 
 public partial class TerraCraft
 {
