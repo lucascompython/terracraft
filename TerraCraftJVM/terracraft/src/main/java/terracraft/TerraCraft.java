@@ -1,6 +1,6 @@
 package terracraft;
 
-public class App {
+public class TerraCraft {
 
     private static native String setup();
 

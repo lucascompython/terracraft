@@ -46,7 +46,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass.set("terracraft.App")
+    mainClass.set("terracraft.TerraCraft")
     applicationDefaultJvmArgs = listOf("-Djava.library.path=../../TerraCraft/target/debug")
 
 }

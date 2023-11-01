@@ -26,7 +26,7 @@ impl JavaStringExt for &str {
 //}
 
 #[no_mangle]
-pub extern "system" fn Java_terracraft_App_mult<'local>(
+pub extern "system" fn Java_terracraft_TerraCraft_mult<'local>(
     mut _env: JNIEnv<'local>,
     _class: JClass<'local>,
     a: jint,
@@ -36,7 +36,7 @@ pub extern "system" fn Java_terracraft_App_mult<'local>(
 }
 
 #[no_mangle]
-pub extern "system" fn Java_terracraft_App_setup<'local>(
+pub extern "system" fn Java_terracraft_TerraCraft_setup<'local>(
     mut env: JNIEnv<'local>,
 
     class: JClass<'local>,

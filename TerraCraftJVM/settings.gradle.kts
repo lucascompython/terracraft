@@ -12,4 +12,4 @@
 // }
 
 rootProject.name = "TerraCraft"
-include("app")
+include("terracraft")
