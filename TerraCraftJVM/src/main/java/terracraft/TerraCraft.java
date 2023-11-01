@@ -16,7 +16,7 @@ public class TerraCraft {
             System.out.println("Setup completed successfully!");
         }
 
-        System.out.println("Hello, TerraCraft!");
+        System.out.println("Hello, TerraCraft, from the JVM!");
     }
 
     public static int add(int a, int b) {
