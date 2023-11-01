@@ -1,34 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    
-
-
-
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OptimizationPreference>Speed</OptimizationPreference>
-    <Optimize>true</Optimize>
-
-    <PublishSingleFile>true</PublishSingleFile>
-
-    <PublishReadyToRun>true</PublishReadyToRun>
-    
     <PublishAot>true</PublishAot>
-    
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
-    <StripSymbols>true</StripSymbols>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishNativeSize>true</PublishNativeSize>
-    <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
-    <TrimMode>full</TrimMode>
+    <AssemblyName>libterracraftnet</AssemblyName>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
 </Project>

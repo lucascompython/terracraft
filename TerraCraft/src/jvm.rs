@@ -26,16 +26,6 @@ impl JavaStringExt for &str {
 //}
 
 #[no_mangle]
-pub extern "system" fn Java_terracraft_TerraCraft_mult<'local>(
-    mut _env: JNIEnv<'local>,
-    _class: JClass<'local>,
-    a: jint,
-    b: jint,
-) -> jint {
-    a * b
-}
-
-#[no_mangle]
 pub extern "system" fn Java_terracraft_TerraCraft_setup<'local>(
     mut env: JNIEnv<'local>,
 
@@ -71,5 +61,5 @@ pub extern "system" fn Java_terracraft_TerraCraft_setup<'local>(
     //let net_result = unsafe { MultiplyNumbers(69, 420) };
     //println!("NET returned: {}!", net_result);
 
-    "Hey".to_java_string(&env)
+    "Error from RUST".to_java_string(&env)
 }

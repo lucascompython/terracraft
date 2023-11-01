@@ -48,6 +48,7 @@ application {
     // Define the main class for the application.
     mainClass.set("terracraft.TerraCraft")
     applicationDefaultJvmArgs = listOf("-Djava.library.path=../../TerraCraft/target/debug")
+    // applicationDefaultJvmArgs = listOf("-Djava.library.path=../../TerraCraft/target/debug", "-Djava.library.path=/home/lucas/Desktop/terracraft/TerraCraftNET/bin/Debug/net7.0/linux-x64/publish")
 
 }
 

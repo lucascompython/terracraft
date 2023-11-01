@@ -4,10 +4,11 @@ public class TerraCraft {
 
     private static native String setup();
 
-    private static native int mult(int a, int b);
+    private static native int addRust(int a, int b);
 
     static {
         System.loadLibrary("terracraft");
+        // System.loadLibrary("terracraftnet");
     }
 
     public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class TerraCraft {
         }
 
         System.out.println("Hello, TerraCraft, from the JVM!");
-        System.out.println("1 + 2 = " + mult(1, 2));
+        System.out.println("1 + 2 = " + addRust(1, 2));
     }
 
     public static int add(int a, int b) {

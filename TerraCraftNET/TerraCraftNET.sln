@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TerraCraftNET", "TerraCraftNET.csproj", "{374F9A44-F648-4898-8075-29AE51520EAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TerraCraftNET", "TerraCraftNET.csproj", "{22BF4EC7-C6A4-4C88-BC5A-6633BFD9CC3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{374F9A44-F648-4898-8075-29AE51520EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{374F9A44-F648-4898-8075-29AE51520EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{374F9A44-F648-4898-8075-29AE51520EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{374F9A44-F648-4898-8075-29AE51520EAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22BF4EC7-C6A4-4C88-BC5A-6633BFD9CC3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22BF4EC7-C6A4-4C88-BC5A-6633BFD9CC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22BF4EC7-C6A4-4C88-BC5A-6633BFD9CC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22BF4EC7-C6A4-4C88-BC5A-6633BFD9CC3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {03872B1A-F321-4220-82C8-E9E36BD01C5F}
+		SolutionGuid = {601D9EB7-2C1F-4B52-BEED-A91B5C5B8D73}
 	EndGlobalSection
 EndGlobal
