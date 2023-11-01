@@ -12,7 +12,7 @@ print:
 
 rust_run:
 	@echo "Rust run"
-	@cd TerraCraft && cargo build & cd ..
+	@cd TerraCraft && cargo build && cd ..
 jvm_run:
 	@echo "JVM run"
 	@cd TerraCraftJVM && $(shell) gradlew run && cd ..
@@ -23,7 +23,7 @@ net_run:
 
 rust_build:
 	@echo "Rust build"
-	@cd TerraCraft && cargo build --release & cd ..
+	@cd TerraCraft && cargo build --release && cd ..
 jvm_build:
 	@echo "JVM build"
 	@cd TerraCraftJVM && $(shell) gradlew build && cd ..
@@ -34,7 +34,7 @@ net_build:
 
 rust_clean:
 	@echo "Rust clean"
-	@cd TerraCraft && cargo clean & cd ..
+	@cd TerraCraft && cargo clean && cd ..
 jvm_clean:
 	@echo "JVM clean"
 	@cd TerraCraftJVM && $(shell) gradlew clean && cd ..
