@@ -29,6 +29,7 @@ crate-type = ["cdylib"]
 lto = true
 codegen-units = 1
 strip = true
+panic = "abort"
 
 [target.x86_64-pc-windows-msvc]
 rustflags = ["-Ctarget-feature=+crt-static"]
