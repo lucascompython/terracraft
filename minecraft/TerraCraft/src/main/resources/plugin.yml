@@ -1,0 +1,4 @@
+name: TerraCraft
+version: '${version}'
+main: org.terracraft.terracraft.TerraCraft
+api-version: '1.20'
