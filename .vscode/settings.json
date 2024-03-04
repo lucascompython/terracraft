@@ -1,8 +1,0 @@
-{
-  "dotnet.defaultSolution": "TerraCraftNET/TerraCraftNET.sln",
-  "java.configuration.updateBuildConfiguration": "automatic",
-  "java.compile.nullAnalysis.mode": "disabled",
-  "java.project.sourcePaths": [],
-  "java.project.outputPath": "build\\libs",
-  "rust-analyzer.linkedProjects": ["./TerraCraft/Cargo.toml"]
-}
