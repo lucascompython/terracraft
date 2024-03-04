@@ -4,7 +4,7 @@ namespace TerraCraftNET;
 
 public partial class TerraCraft
 {
-    [DllImport("/home/lucas/Desktop/terracraft/TerraCraft/target/debug/libterracraft.so")]
+    [DllImport("../TerraCraft/target/debug/libterracraft.so")]
     private static extern int mult_rust(int a, int b);
 
 

@@ -1,8 +1,10 @@
 # For the gradle wrapper
 ifeq ($(OS),Windows_NT)
 	shell := cmd /c 
+	net_runtime := win-x64
 else
 	shell := sh 
+	net_runtime := linux-x64
 endif
 
 all : @run
@@ -18,7 +20,7 @@ jvm_run:
 	@cd TerraCraftJVM && $(shell) gradlew run && cd ..
 net_run:
 	@echo ".NET run"
-	@cd TerraCraftNET && dotnet publish -p:NativeLib=Shared --runtime linux-x64 && cd ..	
+	@cd TerraCraftNET && dotnet publish -p:NativeLib=Shared --runtime $(net_runtime) && cd ..	
 
 
 rust_build:
@@ -29,7 +31,7 @@ jvm_build:
 	@cd TerraCraftJVM && $(shell) gradlew build && cd ..
 net_build:
 	@echo ".NET build"
-	@cd TerraCraftNET && dotnet publish -p:NativeLib=Shared --runtime linux-x64 -c Release && cd ..
+	@cd TerraCraftNET && dotnet publish -p:NativeLib=Shared --runtime $(net_runtime) -c Release && cd ..
 
 
 rust_clean:
