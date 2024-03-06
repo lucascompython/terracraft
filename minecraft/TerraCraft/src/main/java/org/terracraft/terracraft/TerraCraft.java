@@ -12,6 +12,9 @@ public final class TerraCraft extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         logger.info("TerraCraft has been enabled!");
+        // Register chat event listener
+        getServer().getPluginManager().registerEvents(new ChatListener(logger), this);
+
     }
 
     @Override
