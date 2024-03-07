@@ -1,5 +1,8 @@
+import com.google.protobuf.gradle.*
+
 plugins {
     java
+    id("com.google.protobuf") version "0.9.4"
 }
 
 group = "org.terracraft"
@@ -18,8 +21,49 @@ repositories {
     }
 }
 
+
+
+
+
+
 dependencies {
     implementation("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+    implementation("io.grpc:grpc-netty-shaded:1.62.2")
+    implementation("io.grpc:grpc-protobuf:1.62.2")
+    implementation("io.grpc:grpc-protobuf-lite:1.62.2")
+    implementation("io.grpc:grpc-stub:1.62.2")
+    implementation("io.perfmark:perfmark-api:0.23.0")
+    compileOnly("org.apache.tomcat:annotations-api:6.0.53") // necessary for Java 9+
+//    implementation("com.google.protobuf:protobuf-java:3.25.3")
+
+}
+
+// create the source set for proto files
+sourceSets {
+    create("proto") {
+        java.srcDir("build/generated/source/proto/main")
+    }
+}
+
+
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.3"
+    }
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
+        }
+    }
+    generateProtoTasks {
+        ofSourceSet("main").forEach {
+            it.plugins {
+                // Apply the "grpc" plugin whose spec is defined above, without options.
+                id("grpc") { }
+            }
+        }
+    }
 }
 
 
@@ -32,6 +76,27 @@ java {
         toolchain.languageVersion.set(JavaLanguageVersion.of(targetJavaVersion))
     }
 }
+
+
+
+
+//protobuf {
+//    protoc {
+//        artifact = "com.google.protobuf:protoc:3.25.1"
+//    }
+//    plugins {
+//        "grpc" {
+//            artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
+//        }
+//    }
+//    generateProtoTasks {
+//        all().forEach {
+//            it.plugins {
+//                id("grpc") { }
+//            }
+//        }
+//    }
+//}
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
@@ -47,5 +112,13 @@ tasks.withType<Copy>().named("processResources") {
     filteringCharset = "UTF-8"
     filesMatching("plugin.yml") {
         expand(props)
+    }
+}
+tasks.withType<Jar>() {
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    configurations["compileClasspath"].forEach { file: File ->
+        from(zipTree(file.absoluteFile))
     }
 }

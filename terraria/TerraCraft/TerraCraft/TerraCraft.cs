@@ -1,7 +1,8 @@
 ﻿using Terraria;
 using TShockAPI;
 using TerrariaApi.Server;
-
+using Grpc.Core;
+using Grpc.Net.Client;
 
 namespace TerraCraft
 {
@@ -13,6 +14,11 @@ namespace TerraCraft
         public override string Author => "Lucas de Linhares";
         public override string Description => "A plugin that makes a chat bridge with a Minecraft Server";
 
+
+        private GrpcChannel grpcChannel;
+        private ChatService.ChatServiceClient chatServiceClient;
+
+
         public TerraCraft(Main game) : base(game)
         {
 
@@ -20,12 +26,23 @@ namespace TerraCraft
 
         public override void Initialize()
         {
+
+            grpcChannel = GrpcChannel.ForAddress("http://localhost:50051", new GrpcChannelOptions
+            {
+                Credentials = ChannelCredentials.Insecure
+            });
+            chatServiceClient = new ChatService.ChatServiceClient(grpcChannel);
+
+
+
             ServerApi.Hooks.ServerChat.Register(this, OnChat);
         }
 
         private void OnChat(ServerChatEventArgs args)
         {
             Console.WriteLine($"Player {GetPlayerName(args.Who)} said: {args.Text}");
+
+            SendChatMessageAsync(GetPlayerName(args.Who), args.Text);
         }
 
         private static string GetPlayerName(int who) => TShock.Players[who].Name;
@@ -40,6 +57,22 @@ namespace TerraCraft
 
             base.Dispose(disposing);
         }
+
+
+        private async void SendChatMessageAsync(string playerName, string message)
+        {
+            var request = new ChatMessageRequest
+            {
+                Sender = playerName,
+                Message = message
+            };
+
+            var call = chatServiceClient.Chat();
+
+            await call.RequestStream.WriteAsync(request);
+
+        }
+
 
     }
 }

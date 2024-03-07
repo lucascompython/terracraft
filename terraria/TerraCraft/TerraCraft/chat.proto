@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package org.terracraft.grpc;
+option java_package = "org.terracraft.grpc";
+option csharp_namespace = "TerraCraft";
+
+service ChatService {
+  // Bidirectional streaming for chat messages
+  rpc Chat(stream ChatMessageRequest) returns (stream ChatMessageResponse);
+}
+
+message ChatMessageRequest {
+  string sender = 1;
+  string message = 2;
+}
+
+message ChatMessageResponse {
+  string sender = 1;
+  string message = 2;
+}
