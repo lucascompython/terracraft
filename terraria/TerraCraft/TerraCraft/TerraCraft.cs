@@ -17,8 +17,7 @@ namespace TerraCraft
 
 
         private GrpcChannel grpcChannel;
-        private ChatService.ChatServiceClient chatServiceClient;
-
+        AsyncDuplexStreamingCall<ChatMessage, ChatMessage> chat;
 
         public TerraCraft(Main game) : base(game)
         {
@@ -32,7 +31,8 @@ namespace TerraCraft
             {
                 Credentials = ChannelCredentials.Insecure
             });
-            chatServiceClient = new ChatService.ChatServiceClient(grpcChannel);
+            var chatServiceClient = new ChatService.ChatServiceClient(grpcChannel);
+            chat = chatServiceClient.Chat();
 
             ServerApi.Hooks.ServerChat.Register(this, OnChat);
 
@@ -68,21 +68,16 @@ namespace TerraCraft
                 ComesFromServer = false
             };
 
-            var call = chatServiceClient.Chat();
-            await call.RequestStream.WriteAsync(request);
+            await chat.RequestStream.WriteAsync(request);
 
         }
 
         private async Task ReadMessage()
         {
-            // FIXME: This will stop receiving messages after a message is sent to the server
-            while (true)
+            while (await chat.ResponseStream.MoveNext())
             {
-                var response = chatServiceClient.Chat();
-                await foreach (var chatMessage in response.ResponseStream.ReadAllAsync())
-                {
-                    TShock.Utils.Broadcast($"[Minecraft] {chatMessage.Sender}: {chatMessage.Message}", Color.White);
-                }
+                var chatMessage = chat.ResponseStream.Current;
+                TShock.Utils.Broadcast($"[Minecraft] {chatMessage.Sender}: {chatMessage.Message}", Color.White);
             }
         }
     }

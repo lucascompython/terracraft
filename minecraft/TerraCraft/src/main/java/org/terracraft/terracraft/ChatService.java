@@ -20,7 +20,7 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
     }
 
     @Override
-    public StreamObserver<Chat.ChatMessage> chat(StreamObserver<Chat.ChatMessage> responseObserver) {
+    public StreamObserver<Chat.ChatMessage> chat(final StreamObserver<Chat.ChatMessage> responseObserver) {
         this.chatMessageStreamObserver = responseObserver;
 
         return new StreamObserver<Chat.ChatMessage>() {
@@ -52,6 +52,10 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
     }
 
     public void sendChatMessageToTerraria(String sender, String message) {
+        if (chatMessageStreamObserver == null) {
+            logger.warning("Chat message stream observer is null");
+            return;
+        }
         Chat.ChatMessage request = Chat.ChatMessage.newBuilder()
                 .setSender(sender)
                 .setMessage(message)
