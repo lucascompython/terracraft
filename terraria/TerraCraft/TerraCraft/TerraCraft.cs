@@ -3,6 +3,7 @@ using TShockAPI;
 using TerrariaApi.Server;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.Xna.Framework;
 
 namespace TerraCraft
 {
@@ -33,14 +34,13 @@ namespace TerraCraft
             });
             chatServiceClient = new ChatService.ChatServiceClient(grpcChannel);
 
-
-
             ServerApi.Hooks.ServerChat.Register(this, OnChat);
+
+            Task.Run(ReadMessage);
         }
 
         private void OnChat(ServerChatEventArgs args)
         {
-            Console.WriteLine($"Player {GetPlayerName(args.Who)} said: {args.Text}");
 
             SendChatMessageAsync(GetPlayerName(args.Who), args.Text);
         }
@@ -61,18 +61,29 @@ namespace TerraCraft
 
         private async void SendChatMessageAsync(string playerName, string message)
         {
-            var request = new ChatMessageRequest
+            var request = new ChatMessage
             {
                 Sender = playerName,
-                Message = message
+                Message = message,
+                ComesFromServer = false
             };
 
             var call = chatServiceClient.Chat();
-
             await call.RequestStream.WriteAsync(request);
 
         }
 
-
+        private async Task ReadMessage()
+        {
+            // FIXME: This will stop receiving messages after a message is sent to the server
+            while (true)
+            {
+                var response = chatServiceClient.Chat();
+                await foreach (var chatMessage in response.ResponseStream.ReadAllAsync())
+                {
+                    TShock.Utils.Broadcast($"[Minecraft] {chatMessage.Sender}: {chatMessage.Message}", Color.White);
+                }
+            }
+        }
     }
 }

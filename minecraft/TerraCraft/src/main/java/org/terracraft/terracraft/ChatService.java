@@ -2,43 +2,41 @@ package org.terracraft.terracraft;
 
 import io.grpc.stub.StreamObserver;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.terracraft.grpc.Chat;
 import org.terracraft.grpc.ChatServiceGrpc;
 
+import java.util.logging.Logger;
+
 public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
 
-
     private final Server server;
+    private final Logger logger;
+    private StreamObserver<Chat.ChatMessage> chatMessageStreamObserver;
 
-    public ChatService(Server server) {
+    public ChatService(Server server, Logger logger) {
         this.server = server;
+        this.logger = logger;
     }
 
-
-
-
     @Override
-    public StreamObserver<Chat.ChatMessageRequest> chat(StreamObserver<Chat.ChatMessageResponse> responseObserver) {
-        return new StreamObserver<Chat.ChatMessageRequest>() {
+    public StreamObserver<Chat.ChatMessage> chat(StreamObserver<Chat.ChatMessage> responseObserver) {
+        this.chatMessageStreamObserver = responseObserver;
+
+        return new StreamObserver<Chat.ChatMessage>() {
             @Override
-            public void onNext(Chat.ChatMessageRequest request) {
-                // Process incoming message
+            public void onNext(Chat.ChatMessage request) {
                 String sender = request.getSender();
                 String message = request.getMessage();
 
-                System.out.println("Received from " + sender + ": " + message + " (Minecraft)");
-
-                server.broadcast(Component.text("[Terraria] <" + sender + ">" + " " + message));
-
-                // Your logic to handle the message and send a response
-                Chat.ChatMessageResponse response = Chat.ChatMessageResponse.newBuilder()
-                        .setSender("Minecraft")
-                        .setMessage("Received from " + sender + ": " + message + " (Terraria)")
-                        .build();
-
-                responseObserver.onNext(response);
+                if (request.getComesFromServer()) {
+                    responseObserver.onNext(request);
+                    logger.info("Chat message from server: " + message);
+                    return;
+                }
+                String formattedMessage = "[Terraria] <" + sender + ">" + " " + message;
+                logger.info(formattedMessage);
+                server.broadcast(Component.text(formattedMessage));
             }
 
             @Override
@@ -51,5 +49,15 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
                 responseObserver.onCompleted();
             }
         };
+    }
+
+    public void sendChatMessageToTerraria(String sender, String message) {
+        Chat.ChatMessage request = Chat.ChatMessage.newBuilder()
+                .setSender(sender)
+                .setMessage(message)
+                .setComesFromServer(true)
+                .build();
+
+        chat(chatMessageStreamObserver).onNext(request);
     }
 }

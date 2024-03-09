@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b3f34d1-5327-47e6-9fd4-c99fb29593ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/TerraCraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/TerraCraft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/chat.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/chat.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +132,9 @@
       <workItem from="1709759106359" duration="5739000" />
       <workItem from="1709826356459" duration="5213000" />
       <workItem from="1709832865789" duration="1370000" />
-      <workItem from="1709834251072" duration="7705000" />
+      <workItem from="1709834251072" duration="8386000" />
+      <workItem from="1709985049071" duration="30000" />
+      <workItem from="1709985089837" duration="11428000" />
     </task>
     <servers />
   </component>

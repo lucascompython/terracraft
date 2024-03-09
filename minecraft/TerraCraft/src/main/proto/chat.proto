@@ -5,15 +5,12 @@ option java_package = "org.terracraft.grpc";
 
 service ChatService {
   // Bidirectional streaming for chat messages
-  rpc Chat(stream ChatMessageRequest) returns (stream ChatMessageResponse);
+  rpc Chat(stream ChatMessage) returns (stream ChatMessage);
 }
 
-message ChatMessageRequest {
+message ChatMessage {
   string sender = 1;
   string message = 2;
+  bool comesFromServer = 3;
 }
 
-message ChatMessageResponse {
-  string sender = 1;
-  string message = 2;
-}
