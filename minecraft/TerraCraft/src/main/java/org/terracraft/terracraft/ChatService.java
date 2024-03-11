@@ -26,15 +26,12 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
         return new StreamObserver<Chat.ChatMessage>() {
             @Override
             public void onNext(Chat.ChatMessage request) {
-                String sender = request.getSender();
-                String message = request.getMessage();
-
                 if (request.getComesFromServer()) {
                     responseObserver.onNext(request);
-                    logger.info("Chat message from server: " + message);
                     return;
                 }
-                String formattedMessage = "[Terraria] <" + sender + ">" + " " + message;
+
+                String formattedMessage = "[Terraria] <" + request.getSender() + ">" + " " + request.getMessage();
                 logger.info(formattedMessage);
                 server.broadcast(Component.text(formattedMessage));
             }

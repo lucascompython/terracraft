@@ -1,8 +1,10 @@
 import com.google.protobuf.gradle.*
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar;
 
 plugins {
     java
     id("com.google.protobuf") version "0.9.4"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "org.terracraft"
@@ -78,27 +80,8 @@ java {
 }
 
 
-
-
-//protobuf {
-//    protoc {
-//        artifact = "com.google.protobuf:protoc:3.25.1"
-//    }
-//    plugins {
-//        "grpc" {
-//            artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
-//        }
-//    }
-//    generateProtoTasks {
-//        all().forEach {
-//            it.plugins {
-//                id("grpc") { }
-//            }
-//        }
-//    }
-//}
-
 tasks.withType<JavaCompile>().configureEach {
+    dependsOn("generateProto")
     options.encoding = "UTF-8"
 
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible) {
@@ -114,11 +97,8 @@ tasks.withType<Copy>().named("processResources") {
         expand(props)
     }
 }
-tasks.withType<Jar>() {
 
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    configurations["compileClasspath"].forEach { file: File ->
-        from(zipTree(file.absoluteFile))
-    }
+tasks.withType<ShadowJar> {
+    configurations = listOf(project.configurations.getByName("compileClasspath"))
+    // TODO: Try to add minimize()
 }

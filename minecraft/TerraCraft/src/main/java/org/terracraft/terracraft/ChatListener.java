@@ -9,11 +9,9 @@ import java.util.logging.Logger;
 
 public class ChatListener implements Listener {
 
-    private final Logger logger;
     private final ChatService chatService;
 
-    public ChatListener(Logger logger, ChatService chatService) {
-        this.logger = logger;
+    public ChatListener(ChatService chatService) {
         this.chatService = chatService;
     }
 
@@ -21,8 +19,6 @@ public class ChatListener implements Listener {
     public void onPlayerChat(AsyncChatEvent event) {
         String playerName = event.getPlayer().getName();
         String messageContent = ((TextComponent) event.message()).content();
-
-        logger.info("Player " + playerName + " said: " + messageContent);
 
         chatService.sendChatMessageToTerraria(playerName, messageContent);
     }

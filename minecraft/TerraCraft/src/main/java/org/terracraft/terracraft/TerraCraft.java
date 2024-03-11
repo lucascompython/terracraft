@@ -25,7 +25,7 @@ public final class TerraCraft extends JavaPlugin {
         }
 
         logger.info("TerraCraft has been enabled!");
-        getServer().getPluginManager().registerEvents(new ChatListener(logger, chatService), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(chatService), this);
 
     }
 

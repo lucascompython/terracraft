@@ -8,8 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/TerraCraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/TerraCraft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../terraria/TerraCraft/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../terraria/TerraCraft/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +29,9 @@
     <system id="GRADLE">
       <state>
         <task path="C:\Users\lucas\Desktop\terracraft\minecraft\TerraCraft">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$">
           <activation />
         </task>
         <projects_view>
@@ -135,6 +142,8 @@
       <workItem from="1709985049071" duration="30000" />
       <workItem from="1709985089837" duration="11428000" />
       <workItem from="1710009603829" duration="1555000" />
+      <workItem from="1710075288445" duration="6733000" />
+      <workItem from="1710116207861" duration="999000" />
     </task>
     <servers />
   </component>
