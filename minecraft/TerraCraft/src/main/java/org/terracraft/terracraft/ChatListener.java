@@ -5,8 +5,6 @@ import net.kyori.adventure.text.TextComponent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.logging.Logger;
-
 public class ChatListener implements Listener {
 
     private final ChatService chatService;
