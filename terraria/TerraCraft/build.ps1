@@ -14,14 +14,6 @@ else {
 
 dotnet publish -c Release -r $os-x64 --self-contained true # -p:PublishTrimmed=true 
 
-# move 
-# Google.Protobuf.dll
-# Grpc.Core.Api.dll
-# Grpc.Net.Client.dll
-# Grpc.Net.Common.dll
-# Microsoft.Extensions.Logging.Abstractions.dll
-# TerraCraft.dll
-# to a new folder
 
 New-Item -ItemType Directory -Force -Path build 
 
