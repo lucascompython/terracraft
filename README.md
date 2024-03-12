@@ -18,4 +18,6 @@ cd minecraft/TerraCraft
 ```bash
 cd terraria/TerraCraft
 ./build.ps1
+# OR
+./build.sh
 ```
