@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b3f34d1-5327-47e6-9fd4-c99fb29593ac" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/TerraCraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/TerraCraft.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,6 +137,7 @@
       <workItem from="1710075288445" duration="6733000" />
       <workItem from="1710116207861" duration="999000" />
       <workItem from="1710590964233" duration="3142000" />
+      <workItem from="1710595732712" duration="633000" />
     </task>
     <servers />
   </component>
