@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9b3f34d1-5327-47e6-9fd4-c99fb29593ac" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +138,7 @@
       <workItem from="1710075288445" duration="6733000" />
       <workItem from="1710116207861" duration="999000" />
       <workItem from="1710590964233" duration="3142000" />
-      <workItem from="1710595732712" duration="633000" />
+      <workItem from="1710595732712" duration="1853000" />
     </task>
     <servers />
   </component>
