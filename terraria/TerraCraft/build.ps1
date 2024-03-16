@@ -1,5 +1,9 @@
 dotnet publish -c Release -r win-x64 --self-contained true # -p:PublishTrimmed=true 
 
+if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+}
+
 New-Item -ItemType Directory -Force -Path build 
 
 $path = "TerraCraft/bin/Release/net6.0/win-x64/publish"
