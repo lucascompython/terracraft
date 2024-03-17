@@ -4,9 +4,7 @@ On the Minecraft side of things, this it's [PaperMC](https://papermc.io/) Plugin
 On the Terraria side of things, this it's [TShock](https://github.com/Pryaxis/TShock) plugin.  
 Works using a gRPC bi-directional stream.
 
-## How to run
-
-### Security
+## Security
 
 For security reasons, the Minecraft server and the Terraria server must share a token of 32 bytes.  
 This token can be generated with the `gen_token.ps1` or `gen_token.sh` scripts.
@@ -19,6 +17,8 @@ This token can be generated with the `gen_token.ps1` or `gen_token.sh` scripts.
 
 Any message sent from one server to the other will be encrypted.  
 Malicious users that don't have the token will not be able to send messages.
+
+## How to run
 
 ### Minecraft
 
