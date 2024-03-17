@@ -17,6 +17,9 @@ This token can be generated with the `gen_token.ps1` or `gen_token.sh` scripts.
 ./gen_token.sh
 ```
 
+Any message sent from one server to the other will be encrypted.  
+Malicious users trying to spam the gRPC server will be disconnected.
+
 ### Minecraft
 
 + Run the server once to generate the `plugins` folder.
