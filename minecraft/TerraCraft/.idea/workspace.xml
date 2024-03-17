@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9b3f34d1-5327-47e6-9fd4-c99fb29593ac" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/ChatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/TerraCraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/terracraft/terracraft/TerraCraft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/proto/chat.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/proto/chat.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/TerraCraft.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/chat.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../../terraria/TerraCraft/TerraCraft/chat.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +142,9 @@
       <workItem from="1710075288445" duration="6733000" />
       <workItem from="1710116207861" duration="999000" />
       <workItem from="1710590964233" duration="3142000" />
-      <workItem from="1710595732712" duration="1853000" />
+      <workItem from="1710595732712" duration="8450000" />
+      <workItem from="1710676475115" duration="4833000" />
+      <workItem from="1710681354290" duration="3996000" />
     </task>
     <servers />
   </component>

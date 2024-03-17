@@ -12,8 +12,8 @@ namespace TerraCraft
     public struct Config
     {
         public int MinecraftServerPort { get; set; }
-        public string? MinecraftServerAddress { get; set; }
-        public string? Token { get; set; }
+        public string MinecraftServerAddress { get; set; }
+        public string Token { get; set; }
     }
 
     [ApiVersion(2, 1)]
@@ -29,6 +29,8 @@ namespace TerraCraft
 
         private GrpcChannel grpcChannel;
         private AsyncDuplexStreamingCall<ChatMessage, ChatMessage> chat;
+
+        private readonly Encryption encryption;
 
         public TerraCraft(Main game) : base(game)
         {
@@ -50,6 +52,7 @@ namespace TerraCraft
             {
                 config = JsonSerializer.Deserialize<Config>(File.ReadAllText(_configPath));
             }
+            encryption = new Encryption(config.Token);
         }
 
         public override void Initialize()
@@ -79,6 +82,8 @@ namespace TerraCraft
             if (disposing)
             {
                 ServerApi.Hooks.ServerChat.Deregister(this, OnChat);
+                chat.Dispose();
+                grpcChannel.Dispose();
             }
 
             base.Dispose(disposing);
@@ -87,15 +92,16 @@ namespace TerraCraft
 
         private async void SendChatMessageAsync(string playerName, string message)
         {
+
             var request = new ChatMessage
             {
-                Sender = playerName,
-                Message = message,
-                ComesFromServer = false
+                Sender = encryption.Encrypt(playerName),
+                Message = encryption.Encrypt(message),
+                Token = encryption.Encrypt(config.Token),
+                ComesFromServer = false,
             };
 
             await chat.RequestStream.WriteAsync(request);
-
         }
 
         private async Task ReadMessage()
@@ -103,7 +109,7 @@ namespace TerraCraft
             while (await chat.ResponseStream.MoveNext())
             {
                 var chatMessage = chat.ResponseStream.Current;
-                TShock.Utils.Broadcast($"[Minecraft] {chatMessage.Sender}: {chatMessage.Message}", Color.White);
+                TShock.Utils.Broadcast($"[Minecraft] {encryption.Decrypt(chatMessage.Sender)}: {encryption.Decrypt(chatMessage.Message)}", Color.White);
             }
         }
     }

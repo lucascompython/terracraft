@@ -1,16 +1,20 @@
 syntax = "proto3";
 
 package org.terracraft.grpc;
-option java_package = "org.terracraft.grpc";
 option csharp_namespace = "TerraCraft";
 
 service ChatService {
   rpc Chat(stream ChatMessage) returns (stream ChatMessage);
 }
 
-message ChatMessage {
-  string sender = 1;
-  string message = 2;
-  bool comesFromServer = 3;
+message EncryptedData {
+  bytes data = 1;
+  bytes iv = 2;
 }
 
+message ChatMessage {
+  EncryptedData sender = 1;
+  EncryptedData message = 2;
+  EncryptedData token = 3;
+  bool comesFromServer = 4;
+}

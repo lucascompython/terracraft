@@ -17,9 +17,9 @@ public final class TerraCraft extends JavaPlugin {
 
         FileConfiguration config = getConfig();
         String token = config.getString("token");
-        logger.info("Token: " + token);
 
-        ChatService chatService = new ChatService(getServer(), logger);
+        assert token != null;
+        ChatService chatService = new ChatService(getServer(), logger, new Encryption(token), token);
 
         grpcServer = ServerBuilder.forPort(config.getInt("port"))
                 .addService(chatService)

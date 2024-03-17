@@ -6,6 +6,7 @@ import org.bukkit.Server;
 import org.terracraft.grpc.Chat;
 import org.terracraft.grpc.ChatServiceGrpc;
 
+import java.security.GeneralSecurityException;
 import java.util.logging.Logger;
 
 public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
@@ -13,10 +14,14 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
     private final Server server;
     private final Logger logger;
     private StreamObserver<Chat.ChatMessage> chatMessageStreamObserver;
+    private final Encryption encryption;
+    private final String token;
 
-    public ChatService(Server server, Logger logger) {
+    public ChatService(Server server, Logger logger, Encryption encryption, String token) {
         this.server = server;
         this.logger = logger;
+        this.encryption = encryption;
+        this.token = token;
     }
 
     @Override
@@ -26,24 +31,49 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
         return new StreamObserver<Chat.ChatMessage>() {
             @Override
             public void onNext(Chat.ChatMessage request) {
+
+                try {
+                    String decryptedToken = encryption.Decrypt(request.getToken());
+                    if (!decryptedToken.equals(token)) {
+                        logger.warning("Invalid token");
+                        this.onError(new RuntimeException("Invalid token"));
+                        return;
+                    }
+                } catch (GeneralSecurityException e) {
+                    this.onError(new RuntimeException("Invalid token"));
+                    return;
+                }
+
                 if (request.getComesFromServer()) {
                     responseObserver.onNext(request);
                     return;
                 }
 
-                String formattedMessage = "[Terraria] <" + request.getSender() + ">" + " " + request.getMessage();
-                logger.info(formattedMessage);
-                server.broadcast(Component.text(formattedMessage));
+                try {
+                    String message = encryption.Decrypt(request.getMessage());
+                    String sender = encryption.Decrypt(request.getSender());
+
+                    String formattedMessage = "[Terraria] <" + sender + ">" + " " + message;
+                    logger.info(formattedMessage);
+                    server.broadcast(Component.text(formattedMessage));
+                } catch (GeneralSecurityException e) {
+                    this.onError(new RuntimeException("Can't decrypt data, invalid token or data was tampered with."));
+                }
             }
 
             @Override
             public void onError(Throwable t) {
-                // Handle errors if needed
+                logger.warning("Error occurred: " + t.getMessage());
+                this.onCompleted();
             }
 
             @Override
             public void onCompleted() {
-                responseObserver.onCompleted();
+                if (chatMessageStreamObserver != null) {
+                    responseObserver.onCompleted();
+                    chatMessageStreamObserver = null;
+                    logger.info("Chat stream has been closed.");
+                }
             }
         };
     }
@@ -53,12 +83,18 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
             logger.warning("Chat message stream observer is null");
             return;
         }
-        Chat.ChatMessage request = Chat.ChatMessage.newBuilder()
-                .setSender(sender)
-                .setMessage(message)
-                .setComesFromServer(true)
-                .build();
+        try {
 
-        chat(chatMessageStreamObserver).onNext(request);
+            Chat.ChatMessage request = Chat.ChatMessage.newBuilder()
+                    .setMessage(encryption.Encrypt(message))
+                    .setSender(encryption.Encrypt(sender))
+                    .setToken(encryption.Encrypt(token))
+                    .setComesFromServer(true)
+                    .build();
+            chat(chatMessageStreamObserver).onNext(request);
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

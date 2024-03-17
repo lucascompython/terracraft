@@ -4,13 +4,17 @@ package org.terracraft.grpc;
 option java_package = "org.terracraft.grpc";
 
 service ChatService {
-  // Bidirectional streaming for chat messages
   rpc Chat(stream ChatMessage) returns (stream ChatMessage);
 }
 
-message ChatMessage {
-  string sender = 1;
-  string message = 2;
-  bool comesFromServer = 3;
+message EncryptedData {
+  bytes data = 1;
+  bytes iv = 2;
 }
 
+message ChatMessage {
+  EncryptedData sender = 1;
+  EncryptedData message = 2;
+  EncryptedData token = 3;
+  bool comesFromServer = 4;
+}
