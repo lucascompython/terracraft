@@ -8,7 +8,7 @@ Works using a gRPC bi-directional stream.
 
 ### Security
 
-For security reasons, the client and the server must share a token of 32 bytes.  
+For security reasons, the Minecraft server and the Terraria server must share a token of 32 bytes.  
 This token can be generated with the `gen_token.ps1` or `gen_token.sh` scripts.
 
 ```bash
