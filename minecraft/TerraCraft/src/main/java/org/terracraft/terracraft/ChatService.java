@@ -53,9 +53,7 @@ public class ChatService extends ChatServiceGrpc.ChatServiceImplBase {
                     String message = encryption.Decrypt(request.getMessage());
                     String sender = encryption.Decrypt(request.getSender());
 
-                    String formattedMessage = "[Terraria] <" + sender + ">" + " " + message;
-                    logger.info(formattedMessage);
-                    server.broadcast(Component.text(formattedMessage));
+                    server.broadcast(Component.text("[Terraria] <" + sender + ">" + " " + message));
                 } catch (GeneralSecurityException e) {
                     this.onError(new RuntimeException("Can't decrypt data, invalid token or data was tampered with."));
                 }
