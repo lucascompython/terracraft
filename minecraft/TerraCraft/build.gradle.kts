@@ -1,5 +1,16 @@
 import com.google.protobuf.gradle.*
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar;
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.guardsquare:proguard-gradle:7.4.2")
+    }
+}
 
 plugins {
     java
@@ -34,8 +45,13 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:1.62.2")
     implementation("io.grpc:grpc-protobuf-lite:1.62.2")
     implementation("io.grpc:grpc-stub:1.62.2")
-    implementation("io.perfmark:perfmark-api:0.23.0")
+    implementation("io.perfmark:perfmark-api:0.27.0")
     compileOnly("org.apache.tomcat:annotations-api:6.0.53") // necessary for Java 9+
+
+
+    // add proguard
+
+
 //    implementation("com.google.protobuf:protobuf-java:3.25.3")
 
 }
@@ -99,6 +115,42 @@ tasks.withType<Copy>().named("processResources") {
 }
 
 tasks.withType<ShadowJar> {
-    configurations = listOf(project.configurations.getByName("compileClasspath"))
+//    configurations = listOf(project.configurations.getByName("compileClasspath"))
+//    archiveClassifier.set(null)
+    // set classifier to null to avoid creating a separate jar for the shadow jar
+//    archiveClassifier.set("shadow")
+//    minimize{
+//        exclude(dependency("io.grpc.MethodDescriptor:.*:.*"))
+//        exclude(dependency("com.google.protobuf:.*:.*"))
+//    }
     // TODO: Try to add minimize()
+}
+
+tasks.register<proguard.gradle.ProGuardTask>("proguard") {
+//    dependsOn("shadowJar")
+    injars(tasks.named("shadowJar"))
+    outjars("build/TerraCraft-Optimized.jar")
+
+    val javaHome = System.getProperty("java.home")
+    // Automatically handle the Java version of this build.
+    if (System.getProperty("java.version").startsWith("1.")) {
+        // Before Java 9, the runtime classes were packaged in a single jar file.
+        libraryjars("$javaHome/lib/rt.jar")
+    } else {
+        // As of Java 9, the runtime classes are packaged in modular jmod files.
+        libraryjars(
+                // filters must be specified first, as a map
+                mapOf("jarfilter" to "!**.jar",
+                        "filter"    to "!module-info.class"),
+                "$javaHome/jmods/java.base.jmod"
+        )
+    }
+    allowaccessmodification()
+    repackageclasses("")
+    dontwarn()
+
+    dontobfuscate()
+//    dontshrink()
+    dontoptimize()
+    configuration("proguard-rules.pro")
 }
