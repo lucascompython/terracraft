@@ -47,16 +47,8 @@ dependencies {
     implementation("io.grpc:grpc-stub:1.62.2")
     implementation("io.perfmark:perfmark-api:0.27.0")
     compileOnly("org.apache.tomcat:annotations-api:6.0.53") // necessary for Java 9+
-
-
-    // add proguard
-
-
-//    implementation("com.google.protobuf:protobuf-java:3.25.3")
-
 }
 
-// create the source set for proto files
 sourceSets {
     create("proto") {
         java.srcDir("build/generated/source/proto/main")
@@ -77,7 +69,6 @@ protobuf {
     generateProtoTasks {
         ofSourceSet("main").forEach {
             it.plugins {
-                // Apply the "grpc" plugin whose spec is defined above, without options.
                 id("grpc") { }
             }
         }
@@ -149,7 +140,7 @@ tasks.register<proguard.gradle.ProGuardTask>("proguard") {
     repackageclasses("")
     dontwarn()
 
-    dontobfuscate()
+//    dontobfuscate()
 //    dontshrink()
     dontoptimize()
     configuration("proguard-rules.pro")
