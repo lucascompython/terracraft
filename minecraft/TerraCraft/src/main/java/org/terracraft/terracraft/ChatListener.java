@@ -11,7 +11,6 @@ public class ChatListener implements Listener {
 
     public ChatListener(ChatService chatService) {
         this.chatService = chatService;
-        System.out.println("ChatListener created");
     }
 
     @EventHandler
@@ -19,7 +18,6 @@ public class ChatListener implements Listener {
         String playerName = event.getPlayer().getName();
         String messageContent = ((TextComponent) event.message()).content();
 
-        System.out.println("MENSAGEM ENVIADA");
         chatService.sendChatMessageToTerraria(playerName, messageContent);
     }
 }

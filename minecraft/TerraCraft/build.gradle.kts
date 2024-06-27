@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.guardsquare:proguard-gradle:7.4.2")
+        classpath("com.guardsquare:proguard-gradle:7.5.0")
     }
 }
 
@@ -40,11 +40,15 @@ repositories {
 
 
 dependencies {
-    implementation("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
-    implementation("io.grpc:grpc-netty-shaded:1.62.2")
-    implementation("io.grpc:grpc-protobuf:1.62.2")
-    implementation("io.grpc:grpc-protobuf-lite:1.62.2")
-    implementation("io.grpc:grpc-stub:1.62.2")
+    implementation("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
+
+
+
+
+    implementation("io.grpc:grpc-netty-shaded:1.64.0")
+    implementation("io.grpc:grpc-protobuf:1.64.0")
+    implementation("io.grpc:grpc-protobuf-lite:1.64.0")
+    implementation("io.grpc:grpc-stub:1.64.0")
     implementation("io.perfmark:perfmark-api:0.27.0")
     compileOnly("org.apache.tomcat:annotations-api:6.0.53") // necessary for Java 9+
 }
@@ -63,7 +67,7 @@ protobuf {
     }
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.64.0"
         }
     }
     generateProtoTasks {
@@ -76,7 +80,7 @@ protobuf {
 }
 
 
-val targetJavaVersion = 17
+val targetJavaVersion = 21
 java {
     val javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -105,20 +109,7 @@ tasks.withType<Copy>().named("processResources") {
     }
 }
 
-tasks.withType<ShadowJar> {
-//    configurations = listOf(project.configurations.getByName("compileClasspath"))
-//    archiveClassifier.set(null)
-    // set classifier to null to avoid creating a separate jar for the shadow jar
-//    archiveClassifier.set("shadow")
-//    minimize{
-//        exclude(dependency("io.grpc.MethodDescriptor:.*:.*"))
-//        exclude(dependency("com.google.protobuf:.*:.*"))
-//    }
-    // TODO: Try to add minimize()
-}
-
 tasks.register<proguard.gradle.ProGuardTask>("proguard") {
-//    dependsOn("shadowJar")
     injars(tasks.named("shadowJar"))
     outjars("build/TerraCraft-Optimized.jar")
 
@@ -140,8 +131,8 @@ tasks.register<proguard.gradle.ProGuardTask>("proguard") {
     repackageclasses("")
     dontwarn()
 
-//    dontobfuscate()
-//    dontshrink()
+    // TODO: Try to enable this
     dontoptimize()
+
     configuration("proguard-rules.pro")
 }
