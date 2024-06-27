@@ -4,6 +4,14 @@ On the Minecraft side of things, this it's [PaperMC](https://papermc.io/) Plugin
 On the Terraria side of things, this it's [TShock](https://github.com/Pryaxis/TShock) plugin.  
 Works using a gRPC bi-directional stream.
 
+## Demo
+
+
+
+https://github.com/lucascompython/terracraft/assets/77930083/d7a78d70-0910-4479-8c04-46ee99b23285
+
+
+
 ## Security
 
 For security reasons, the Minecraft server and the Terraria server must share a token of 32 bytes.  
