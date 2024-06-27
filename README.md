@@ -15,6 +15,7 @@ https://github.com/lucascompython/terracraft/assets/77930083/d7a78d70-0910-4479-
 ## Security
 
 For security reasons, the Minecraft server and the Terraria server must share a token of 32 bytes.  
+This token will be used to encrypt and decrypt the messages sent between the games.  
 This token can be generated with the `gen_token.ps1` or `gen_token.sh` scripts.
 
 ```bash
@@ -23,7 +24,6 @@ This token can be generated with the `gen_token.ps1` or `gen_token.sh` scripts.
 ./gen_token.sh
 ```
 
-Any message sent from one server to the other will be encrypted.  
 Malicious users that don't have the token will not be able to send messages.
 
 ## How to run
@@ -47,7 +47,7 @@ Malicious users that don't have the token will not be able to send messages.
 
 ```bash
 cd minecraft/TerraCraft
-./gradlew shadowJar
+./gradlew proguard
 ```
 
 ### Terraria
