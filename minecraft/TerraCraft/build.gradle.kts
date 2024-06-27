@@ -1,5 +1,16 @@
 import com.google.protobuf.gradle.*
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar;
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.guardsquare:proguard-gradle:7.5.0")
+    }
+}
 
 plugins {
     java
@@ -29,18 +40,19 @@ repositories {
 
 
 dependencies {
-    implementation("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
-    implementation("io.grpc:grpc-netty-shaded:1.62.2")
-    implementation("io.grpc:grpc-protobuf:1.62.2")
-    implementation("io.grpc:grpc-protobuf-lite:1.62.2")
-    implementation("io.grpc:grpc-stub:1.62.2")
-    implementation("io.perfmark:perfmark-api:0.23.0")
-    compileOnly("org.apache.tomcat:annotations-api:6.0.53") // necessary for Java 9+
-//    implementation("com.google.protobuf:protobuf-java:3.25.3")
+    implementation("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
 
+
+
+
+    implementation("io.grpc:grpc-netty-shaded:1.64.0")
+    implementation("io.grpc:grpc-protobuf:1.64.0")
+    implementation("io.grpc:grpc-protobuf-lite:1.64.0")
+    implementation("io.grpc:grpc-stub:1.64.0")
+    implementation("io.perfmark:perfmark-api:0.27.0")
+    compileOnly("org.apache.tomcat:annotations-api:6.0.53") // necessary for Java 9+
 }
 
-// create the source set for proto files
 sourceSets {
     create("proto") {
         java.srcDir("build/generated/source/proto/main")
@@ -55,13 +67,12 @@ protobuf {
     }
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.62.2"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.64.0"
         }
     }
     generateProtoTasks {
         ofSourceSet("main").forEach {
             it.plugins {
-                // Apply the "grpc" plugin whose spec is defined above, without options.
                 id("grpc") { }
             }
         }
@@ -69,7 +80,7 @@ protobuf {
 }
 
 
-val targetJavaVersion = 17
+val targetJavaVersion = 21
 java {
     val javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -98,7 +109,30 @@ tasks.withType<Copy>().named("processResources") {
     }
 }
 
-tasks.withType<ShadowJar> {
-    configurations = listOf(project.configurations.getByName("compileClasspath"))
-    // TODO: Try to add minimize()
+tasks.register<proguard.gradle.ProGuardTask>("proguard") {
+    injars(tasks.named("shadowJar"))
+    outjars("build/TerraCraft-Optimized.jar")
+
+    val javaHome = System.getProperty("java.home")
+    // Automatically handle the Java version of this build.
+    if (System.getProperty("java.version").startsWith("1.")) {
+        // Before Java 9, the runtime classes were packaged in a single jar file.
+        libraryjars("$javaHome/lib/rt.jar")
+    } else {
+        // As of Java 9, the runtime classes are packaged in modular jmod files.
+        libraryjars(
+                // filters must be specified first, as a map
+                mapOf("jarfilter" to "!**.jar",
+                        "filter"    to "!module-info.class"),
+                "$javaHome/jmods/java.base.jmod"
+        )
+    }
+    allowaccessmodification()
+    repackageclasses("")
+    dontwarn()
+
+    // TODO: Try to enable this
+    dontoptimize()
+
+    configuration("proguard-rules.pro")
 }
